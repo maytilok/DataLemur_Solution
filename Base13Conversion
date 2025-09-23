@@ -1,0 +1,14 @@
+def convertToBase13(num):
+  if num == 0:
+    return "0"
+  digits = []
+  negative = num<0
+  num = abs(num)
+  symbols = "0123456789ABC"
+  while num>0:
+    num, rem = divmod(num, 13)
+    digits.append(symbols[rem])
+  if negative:
+    digits.append("-")
+    
+  return "".join(reversed(digits))
