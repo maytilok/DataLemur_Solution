@@ -6,15 +6,25 @@ class Solution:
         #m=number of row, n=number of column
         m, n = len(grid), len(grid[0])
 
+        #case when single cell grid
+        if m == 1 and n == 1:
+            return 0  # Already at destination
+
         #case where we have enogh elimination k to go straight right and then down (or down then right), which would be the shortest path
         if k>(m-1)+(n-1):
           return (m-1)+(n-1) #number of step to straight right and then down (or down then right)
             
         #BFS over (row, col, elim) elim<k
+
+        #check if starting cell is obstacle
+        initial_k = k if grid[0][0] == 0 else k - 1 #if first cell is obstacle, start when elmination already use 1 = k-1
+        if initial_k < 0:
+            return -1  # Can't even start
+        
         #initialize queue with staring state
-        q = deque([(0,0,k)])
+        q = deque([(0,0,initial_k)])
         #visited to track visited states
-        visited = {(0,0,k)}
+        visited = {(0,0,initial_k)}
         #track current steps
         result = 0
 
